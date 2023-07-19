@@ -3,3 +3,5 @@
 /saleboard-server/.prettierrc
 /saleboard-server/package.json
 /saleboard-server/package-lock.json
+.idea
+/saleboard-server/prisma/migrations

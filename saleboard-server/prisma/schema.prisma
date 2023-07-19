@@ -1,0 +1,47 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  User
+  Admin
+}
+
+model User {
+  id           Int    @id @default(autoincrement())
+  email        String @unique
+  role         Role
+  name         String
+  password     String
+  image        String
+  sumEstimates Int    @map("sum_estimates")
+  numEstimates Int    @map("num_estimates")
+  rating       Float
+  ads          Ad[]
+}
+
+model Category {
+  title String @id @unique
+  ads   Ad[]
+}
+
+model Ad {
+  id           Int      @id @default(autoincrement())
+  title        String
+  description  String
+  image        String[]
+  author       User     @relation(fields: [authorId], references: [id])
+  authorId     Int      @map("author-id")
+  category     Category @relation(fields: [categoryName], references: [title])
+  categoryName String   @map("category-name")
+  createdAt    DateTime @default(now()) @map("created-at")
+  updatedAt    DateTime @updatedAt @map("updated-at")
+}
