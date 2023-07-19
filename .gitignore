@@ -1,0 +1,5 @@
+/saleboard-server/node_modules
+/saleboard-server/.env
+/saleboard-server/.prettierrc
+/saleboard-server/package.json
+/saleboard-server/package-lock.json
