@@ -4,6 +4,10 @@ import authRoutes from './app/auth/auth.routes.js'
 import * as dotenv from "dotenv"
 import morgan from "morgan";
 import {prisma} from "./app/prisma.js";
+import {errorHandler, notFound} from "./app/middleware/error.middleware.js";
+import userRoutes from "./app/user/user.routes.js";
+import adRoutes from "./app/ad/ad.routes.js";
+import path from "path";
 
 dotenv.config()
 
@@ -12,7 +16,15 @@ const app = express()
 async function main(){
     if (process.env.NODE_ENV === 'development') app.use(morgan('dev'))
     app.use(express.json())
+
+    const __dirname = path.resolve()
+    app.use('/uploads',express.static(path.join(__dirname, '/uploads/')))
+
     app.use('/api/auth', authRoutes)
+    app.use('/api/user', userRoutes)
+    app.use('/api/ad', adRoutes)
+    app.use(notFound)
+    app.use(errorHandler)
 
     const PORT = 5000
 

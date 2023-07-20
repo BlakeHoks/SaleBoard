@@ -11,25 +11,34 @@ datasource db {
 }
 
 enum Role {
-  User
-  Admin
+  user
+  admin
+}
+
+enum AdStatus {
+  created
+  published
+  banned
+  closed
+  sold
 }
 
 model User {
   id           Int    @id @default(autoincrement())
   email        String @unique
-  role         Role
+  role         Role   @default(user)
   name         String
   password     String
-  image        String
-  sumEstimates Int    @map("sum_estimates")
-  numEstimates Int    @map("num_estimates")
-  rating       Float
+  image        String @default("")
+  sumEstimates Int    @default(0) @map("sum_estimates")
+  numEstimates Int    @default(0) @map("num_estimates")
+  rating       Float  @default(0.00)
   ads          Ad[]
 }
 
 model Category {
-  title String @id @unique
+  title String  @id @unique
+  image String?
   ads   Ad[]
 }
 
@@ -37,11 +46,14 @@ model Ad {
   id           Int      @id @default(autoincrement())
   title        String
   description  String
-  image        String[]
+  images       String[]
   author       User     @relation(fields: [authorId], references: [id])
   authorId     Int      @map("author-id")
   category     Category @relation(fields: [categoryName], references: [title])
   categoryName String   @map("category-name")
+  address      String
+  status       AdStatus
+  price        Int
   createdAt    DateTime @default(now()) @map("created-at")
   updatedAt    DateTime @updatedAt @map("updated-at")
 }

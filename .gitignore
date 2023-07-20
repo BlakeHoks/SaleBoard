@@ -5,3 +5,4 @@
 /saleboard-server/package-lock.json
 .idea
 /saleboard-server/prisma/migrations
+/saleboard-server/uploads
