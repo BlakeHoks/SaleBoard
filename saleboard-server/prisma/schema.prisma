@@ -24,16 +24,19 @@ enum AdStatus {
 }
 
 model User {
-  id           Int    @id @default(autoincrement())
-  email        String @unique
-  role         Role   @default(user)
-  name         String
-  password     String
-  image        String @default("")
-  sumEstimates Int    @default(0) @map("sum_estimates")
-  numEstimates Int    @default(0) @map("num_estimates")
-  rating       Float  @default(0.00)
-  ads          Ad[]
+  id              Int       @id @default(autoincrement())
+  email           String    @unique
+  role            Role      @default(user)
+  name            String
+  password        String
+  number          String    @unique
+  image           String    @default("")
+  sumEstimates    Int       @default(0) @map("sum_estimates")
+  numEstimates    Int       @default(0) @map("num_estimates")
+  rating          Float     @default(0.00)
+  ads             Ad[]
+  writtenComments Comment[] @relation(name: "WrittenComments")
+  Comments        Comment[] @relation(name: "CommentsAboutUser")
 }
 
 model Category {
@@ -43,17 +46,30 @@ model Category {
 }
 
 model Ad {
-  id           Int      @id @default(autoincrement())
+  id           Int       @id @default(autoincrement())
   title        String
   description  String
   images       String[]
-  author       User     @relation(fields: [authorId], references: [id])
-  authorId     Int      @map("author-id")
-  category     Category @relation(fields: [categoryName], references: [title])
-  categoryName String   @map("category-name")
+  author       User      @relation(fields: [authorId], references: [id])
+  authorId     Int       @map("author-id")
+  category     Category  @relation(fields: [categoryName], references: [title])
+  categoryName String    @map("category-name")
   address      String
-  status       AdStatus
+  status       AdStatus  @default(created)
   price        Int
-  createdAt    DateTime @default(now()) @map("created-at")
-  updatedAt    DateTime @updatedAt @map("updated-at")
+  createdAt    DateTime  @default(now()) @map("created-at")
+  updatedAt    DateTime  @updatedAt @map("updated-at")
+  comments     Comment[]
+}
+
+model Comment {
+  id       Int    @id @default(autoincrement())
+  text     String
+  estimate Int
+  ad       Ad     @relation(fields: [adId], references: [id])
+  adId     Int    @map("ad-id")
+  author   User   @relation(name: "WrittenComments", fields: [authorId], references: [id])
+  authorId Int    @map("author-id")
+  user     User   @relation(name: "CommentsAboutUser", fields: [userId], references: [id])
+  userId   Int    @map("user-id")
 }

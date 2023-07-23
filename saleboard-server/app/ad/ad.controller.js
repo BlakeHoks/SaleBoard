@@ -3,17 +3,6 @@ import {prisma} from "../prisma.js";
 
 export const createAd = asyncHandler(async (req, res) => {
     const {title, description, images, authorId, address, categoryName, price} = req.body
-    const author = await prisma.user.findUnique({
-        where: {
-            id: authorId
-        }
-    })
-
-    const category = await prisma.category.findUnique({
-        where: {
-            title: categoryName
-        }
-    })
 
     const ad = await prisma.ad.create({
         data: {
