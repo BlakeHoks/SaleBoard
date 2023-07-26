@@ -1,0 +1,33 @@
+@import "variables";
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background-color: $bg;
+  padding: 0;
+  margin: 0;
+  color: $white;
+  font-size: 20px;
+  min-width: 320px;
+  position: relative;
+  line-height: 1.65;
+  font-family: $default-font;
+  overflow-x: hidden;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+img {
+  max-width: 100%;
+}
+
+#root {
+  height: 100%;
+}

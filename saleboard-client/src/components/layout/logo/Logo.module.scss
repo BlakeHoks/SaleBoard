@@ -1,0 +1,9 @@
+.cont {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  > p {
+    padding-left: 3px;
+    font-weight: bold;
+  }
+}
