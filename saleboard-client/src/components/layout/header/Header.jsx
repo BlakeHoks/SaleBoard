@@ -2,28 +2,34 @@ import styles from "./Header.module.scss";
 import { Logo } from "../logo/Logo.jsx";
 import { Link, NavLink } from "react-router-dom";
 import { FiUser } from "react-icons/fi";
+import Hamburger from "../hamburger/Hamburger.jsx";
 
 export const Header = () => {
   return (
     <div className={styles.cont}>
-      <Logo />
+      <Link to="/">
+        <Logo />
+      </Link>
       <nav>
         <ul>
           <li>
-            <NavLink to="profile">123</NavLink>
+            <NavLink to="/">Главная</NavLink>
           </li>
           <li>
-            <NavLink to="/">456</NavLink>
+            <NavLink to="/">Контакты</NavLink>
           </li>
-          <li>Категории</li>
+          <li>
+            <Hamburger text="Категории" />
+          </li>
         </ul>
       </nav>
-      <div>
-        <input type="text" placeholder="Поиск" />
+      <input type="text" placeholder="Поиск" />
+      <div className={styles.profileButton}>
+        <Link to="profile">
+          Профиль
+          <FiUser />
+        </Link>
       </div>
-      <Link to="profile">
-        <FiUser />
-      </Link>
     </div>
   );
 };

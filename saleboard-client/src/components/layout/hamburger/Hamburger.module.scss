@@ -9,23 +9,31 @@
     border: none;
     outline: none;
     cursor: pointer;
+    color: $bg;
+    font-family: $default-font;
+    font-weight: normal;
   }
 
   > button {
-    font-size: 30px;
+    font-size: 20px;
+
+    > svg {
+      position: relative;
+      top: 2px;
+    }
 
     > svg > path {
-      fill: $white;
+      fill: $bg;
     }
   }
 
   .menu {
     position: absolute;
-    top: calc(100% + 8px);
+    top: calc(100% + 12px);
     left: 0;
-    background-color: $white;
+    background-color: $bg;
     padding: 10px 12px;
-    font-size: 14px;
+    font-size: 20px;
     box-shadow: $bx-16;
     border-radius: 10px;
     min-width: 116px;
@@ -47,8 +55,7 @@
 
         &:hover,
         &.active {
-          color: blue;
-          margin: 4px 0;
+          color: $focus;
         }
       }
     }

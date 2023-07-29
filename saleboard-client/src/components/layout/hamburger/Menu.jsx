@@ -1,10 +1,9 @@
 import cn from "clsx";
 import styles from "./Hamburger.module.scss";
 import { menu } from "./menu.data";
+import { Link } from "react-router-dom";
 
 const Menu = ({ isShow }) => {
-  const logoutHandler = () => {};
-
   return (
     <nav
       className={cn(styles.menu, {
@@ -14,8 +13,7 @@ const Menu = ({ isShow }) => {
       <ul>
         {menu.map((item, index) => (
           <li key={`_menu_${index}`}>
-            <a>{item.title}</a>
-            {/* <Link to={item.link}>{item.title}</Link> */}
+            <Link to={item.link}>{item.title}</Link>
           </li>
         ))}
       </ul>

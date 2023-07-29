@@ -12,11 +12,13 @@ import { HomePage } from "./components/pages/home/HomePage.jsx";
 import { ErrorPage } from "./components/pages/error/ErrorPage.jsx";
 import { Profile } from "./components/pages/profile/Profile.jsx";
 import { Ad } from "./components/pages/ad/Ad.jsx";
+import { Auth } from "./components/pages/auth/Auth.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<Layout />}>
       <Route index element={<HomePage />} />
+      <Route path="auth" element={<Auth />} />
       <Route path="profile" element={<Profile />} />
       <Route path="ad/:id" element={<Ad />} />
       <Route path="*" element={<ErrorPage />} />

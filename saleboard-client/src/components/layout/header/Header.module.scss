@@ -10,6 +10,10 @@
   margin: 10px;
   padding: 5px;
   color: $bg;
+  justify-content: space-between;
+
+  nav {
+  }
 
   ul {
     display: flex;
@@ -23,10 +27,14 @@
   a {
     text-decoration: none;
     color: $bg;
-  }
 
-  a:hover {
-    color: $focus;
+    &:hover {
+      color: $focus;
+    }
+
+    &.active {
+      color: red;
+    }
   }
 
   input {
@@ -42,5 +50,14 @@
     color: $bg;
     font-family: $default-font;
     font-size: 15px;
+  }
+
+  .profileButton {
+    margin-top: 5px;
+
+    svg {
+      position: relative;
+      top: 2px;
+    }
   }
 }

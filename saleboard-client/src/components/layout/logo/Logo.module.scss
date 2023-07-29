@@ -1,3 +1,5 @@
+@import "../../../assets/styles/variables";
+
 .cont {
   display: flex;
   flex-direction: row;
@@ -5,8 +7,4 @@
   width: 35px;
   height: 35px;
   margin: 5px 30px;
-  > p {
-    padding-left: 3px;
-    font-weight: bold;
-  }
 }
