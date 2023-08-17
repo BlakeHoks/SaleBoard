@@ -1,0 +1,27 @@
+@import "../../../assets/styles/variables";
+
+.container {
+  display: flex;
+  flex-direction: column;
+
+  p {
+    font-size: 30px;
+    font-weight: 500;
+  }
+}
+
+.firstRowCont {
+  display: flex;
+  flex-direction: row;
+  gap: 50px;
+}
+
+.sideCont {
+}
+
+.imageCont {
+  width: 550px;
+  height: 350px;
+  background-color: $focus;
+  background-image: none;
+}

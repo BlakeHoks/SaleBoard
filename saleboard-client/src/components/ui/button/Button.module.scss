@@ -1,0 +1,19 @@
+@import "../../../assets/styles/variables";
+@import "../../../assets/styles/animations";
+
+.button {
+  outline: none;
+  border: none;
+  border-radius: 10px;
+  color: $bg;
+  height: 55px;
+  width: 200px;
+  cursor: pointer;
+  font-size: 20px;
+  background-color: $focus;
+  transition: ease-in-out 0.3s;
+
+  &:hover {
+    background-color: darken($focus, 10);
+  }
+}

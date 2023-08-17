@@ -13,6 +13,7 @@ import { ErrorPage } from "./components/pages/error/ErrorPage.jsx";
 import { Profile } from "./components/pages/profile/Profile.jsx";
 import { Ad } from "./components/pages/ad/Ad.jsx";
 import { Auth } from "./components/pages/auth/Auth.jsx";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -26,8 +27,12 @@ const router = createBrowserRouter(
   ),
 );
 
+const queryClient = new QueryClient();
+
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={router} />
+    </QueryClientProvider>
   </React.StrictMode>,
 );
