@@ -14,11 +14,11 @@ body {
   min-width: 320px;
   position: relative;
   line-height: 1.65;
-  font-family: $default-font;
   overflow-x: hidden;
 }
 
 * {
+  font-family: $default-font;
   margin: 0;
   padding: 0;
   box-sizing: border-box;

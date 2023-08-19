@@ -1,0 +1,51 @@
+@import "../../../assets/styles/variables";
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  align-items: center;
+  margin-top: 200px;
+
+  > div {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .buttonCont {
+    flex-direction: row;
+  }
+
+  input {
+    outline: none;
+    padding: 5px;
+    border-radius: 7px;
+    border: solid $dark 2px;
+    font-size: 20px;
+    width: 300px;
+    height: 40px;
+  }
+
+  span {
+    margin-left: 5px;
+    font-size: 14px;
+    color: red;
+  }
+}
+
+.regButton {
+  outline: none;
+  border: none;
+  border-radius: 10px;
+  color: $bg;
+  height: 55px;
+  width: 200px;
+  cursor: pointer;
+  font-size: 20px;
+  background-color: darken($focus, 30);
+  transition: ease-in-out 0.3s;
+
+  &:hover {
+    background-color: darken($focus, 10);
+  }
+}

@@ -22,7 +22,7 @@ export const AdCreate = () => {
     {
       onSuccess: (data) => {
         console.log("Success", data);
-        nav(`/ad/${data.data.id}`);
+        nav(`/ad/${data.id}`);
       },
     },
   );
@@ -73,7 +73,6 @@ export const AdCreate = () => {
           <input
             className={styles.file}
             type="file"
-            id="file"
             multiple
             {...register("image")}
           />
