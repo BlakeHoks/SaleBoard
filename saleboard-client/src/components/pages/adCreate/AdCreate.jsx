@@ -30,8 +30,6 @@ export const AdCreate = () => {
   const onSubmit = (data) => {
     console.log(data);
     data.image = [""];
-    data.authorId = data.price + 0;
-    data.price = data.price + 0;
     mutate(data);
   };
 
@@ -46,7 +44,7 @@ export const AdCreate = () => {
         <input
           type="text"
           placeholder="Цена"
-          {...register("price", { required: true })}
+          {...register("price", { required: true, valueAsNumber: true })}
         />
         <input
           type="text"
@@ -56,7 +54,7 @@ export const AdCreate = () => {
         <input
           type="number"
           placeholder="authorId"
-          {...register("authorId", { required: true })}
+          {...register("authorId", { required: true, valueAsNumber: true })}
         />
         <input
           type="text"

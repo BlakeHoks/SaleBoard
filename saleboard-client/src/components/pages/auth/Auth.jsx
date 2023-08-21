@@ -14,24 +14,42 @@ export const Auth = () => {
     register,
     handleSubmit,
     watch,
+    getValues,
     formState: { errors },
   } = useForm();
 
-  const { mutate } = useMutation(["auth"], (data) => AuthService.login(data), {
-    onSuccess: (data) => {
-      console.log("Success", data);
-      nav(`/profile`);
+  const { mutate: login } = useMutation(
+    ["login"],
+    (data) => AuthService.login(data),
+    {
+      onSuccess: (data) => {
+        console.log("Success", data);
+        nav(`/`);
+      },
     },
-  });
+  );
+
+  const { mutate: signUp } = useMutation(
+    ["register"],
+    (data) => AuthService.register(data),
+    {
+      onSuccess: (data) => {
+        console.log("Success", data);
+        nav(`/`);
+      },
+    },
+  );
 
   const onSubmit = (data) => {
     console.log(data);
-    mutate(data);
+    login(data);
   };
 
   const handleClick = (e) => {
     e.preventDefault();
-    console.log("lol");
+    const data = getValues();
+    console.log(data);
+    signUp(data);
   };
 
   return (
@@ -40,17 +58,25 @@ export const Auth = () => {
         <div>
           <input
             placeholder="Email"
-            {...register("email", { required: true })}
+            {...register("email", {
+              required: { value: true, message: "Введите Email" },
+            })}
           />
-          {errors.email && <span>Введите email</span>}
+          {errors.email && <span>{errors.email.message}</span>}
         </div>
         <div>
           <input
             type="password"
             placeholder="Пароль"
-            {...register("password", { required: true })}
+            {...register("password", {
+              required: { value: true, message: "Введите пароль" },
+              minLength: {
+                value: 5,
+                message: "Минимальная длина пароля 5 символов",
+              },
+            })}
           />
-          {errors.password && <span>Введите пароль</span>}
+          {errors.password && <span>{errors.password.message}</span>}
         </div>
         <div className={styles.buttonCont}>
           <Button>Войти</Button>
