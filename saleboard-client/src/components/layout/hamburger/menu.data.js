@@ -1,14 +1,14 @@
 export const menu = [
   {
     title: "Книги",
-    link: "/workouts",
+    link: "/books",
   },
   {
     title: "Автомобили",
-    link: "/new-workout",
+    link: "/auto",
   },
   {
     title: "Электроника",
-    link: "/profile",
+    link: "/electronics",
   },
 ];

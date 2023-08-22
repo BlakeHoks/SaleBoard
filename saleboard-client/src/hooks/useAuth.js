@@ -1,5 +1,5 @@
 export const UseAuth = () => {
   return {
-    isAuth: false,
+    isAuth: !!localStorage.getItem("access_token"),
   };
 };

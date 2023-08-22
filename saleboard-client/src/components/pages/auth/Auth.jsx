@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { AuthService } from "../../../services/auth.service.js";
 import styles from "./Auth.module.scss";
 import { useState } from "react";
+import { UseAuth } from "../../../hooks/useAuth.js";
 
 export const Auth = () => {
   const nav = useNavigate();
@@ -24,6 +25,7 @@ export const Auth = () => {
     {
       onSuccess: (data) => {
         console.log("Success", data);
+        localStorage.setItem("access_token", data.token);
         nav(`/`);
       },
     },
@@ -35,6 +37,7 @@ export const Auth = () => {
     {
       onSuccess: (data) => {
         console.log("Success", data);
+        localStorage.setItem("access_token", data.token);
         nav(`/`);
       },
     },
@@ -52,6 +55,9 @@ export const Auth = () => {
     signUp(data);
   };
 
+  const { isAuth } = UseAuth();
+
+  //console.log(isAuth);
   return (
     <div>
       <form className={styles.container} onSubmit={handleSubmit(onSubmit)}>

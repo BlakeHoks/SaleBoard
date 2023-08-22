@@ -15,13 +15,25 @@ import { Ad } from "./components/pages/ad/Ad.jsx";
 import { Auth } from "./components/pages/auth/Auth.jsx";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { AdCreate } from "./components/pages/adCreate/AdCreate.jsx";
+import { Catalog } from "./components/pages/catalog/Catalog.jsx";
+import { RequireAuth } from "./components/layout/authLayer/RequireAuth.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<Layout />}>
       <Route index element={<HomePage />} />
+      <Route
+        path="profile"
+        element={
+          <RequireAuth>
+            <Profile />
+          </RequireAuth>
+        }
+      />
       <Route path="auth" element={<Auth />} />
-      <Route path="profile" element={<Profile />} />
+      <Route path="books" element={<Catalog category="Books" />} />
+      <Route path="auto" element={<Catalog category="Auto" />} />
+      <Route path="electronics" element={<Catalog category="Electronics" />} />
       <Route path="ad/:id" element={<Ad />} />
       <Route path="ad/create" element={<AdCreate />} />
       <Route path="*" element={<ErrorPage />} />
