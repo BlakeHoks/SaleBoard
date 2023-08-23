@@ -21,4 +21,8 @@ export const AuthService = {
     return (await axios.post("http://127.0.0.1:5000/api/auth/register", data))
       .data;
   },
+  async addProfileImage(data) {
+    return (await axios.post("http://127.0.0.1:5000/api/auth/image", data))
+      .data;
+  },
 };
