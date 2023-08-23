@@ -19,7 +19,6 @@ export const Profile = () => {
     e.preventDefault();
     const formData = new FormData();
     formData.append("file", newProfileImage);
-    console.log(newProfileImage);
     mutate(formData);
   };
 
@@ -27,11 +26,12 @@ export const Profile = () => {
     setNewProfileImage(e.target.files[0]);
   };
 
+  console.log(data?.image);
   return (
     <div>
       <div>{data?.name}</div>
       <div>
-        <img src={data?.image} alt="Фото" />
+        <img src={`/uploads/${data?.image}`} alt="Фото" />
       </div>
       <input type="file" onChange={(e) => handleChange(e)} />
       <button onClick={(e) => handleClick(e)}>Изменить фото</button>

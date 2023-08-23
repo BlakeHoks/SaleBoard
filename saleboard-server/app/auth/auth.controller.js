@@ -51,7 +51,3 @@ export const registerUser = asyncHandler(async (req, res) => {
 
   res.json({ user, token });
 });
-
-export const addProfileImage = asyncHandler(async (req, res) => {
-  console.log(123);
-});
