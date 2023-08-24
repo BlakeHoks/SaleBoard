@@ -1,12 +1,22 @@
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { AuthService } from "../../../services/auth.service.js";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useRef, useState } from "react";
+import styles from "./Profile.module.scss";
+import { PiCameraRotateFill } from "react-icons/pi";
 
 export const Profile = () => {
+  const queryClient = useQueryClient();
+  const imagePicker = useRef(null);
   const { data } = useQuery(["profile"], () => AuthService.getUserProfile());
-  const { mutate } = useMutation(["profile_image"], (data) =>
-    AuthService.addProfileImage(data),
+  const { mutate } = useMutation(
+    ["profile_image"],
+    (data) => AuthService.addProfileImage(data),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(["profile"]);
+      },
+    },
   );
   const [newProfileImage, setNewProfileImage] = useState();
   const nav = useNavigate();
@@ -15,27 +25,49 @@ export const Profile = () => {
     nav("/");
   };
 
-  const handleClick = (e) => {
-    e.preventDefault();
+  const handleChange = (e) => {
+    console.log(e.target.files[0]);
     const formData = new FormData();
-    formData.append("file", newProfileImage);
+    formData.append("file", e.target.files[0]);
     mutate(formData);
   };
 
-  const handleChange = (e) => {
-    setNewProfileImage(e.target.files[0]);
-  };
-
-  console.log(data?.image);
   return (
-    <div>
-      <div>{data?.name}</div>
-      <div>
-        <img src={`/uploads/${data?.image}`} alt="Фото" />
+    <div className={styles.container}>
+      <div className={styles.imgNameCont}>
+        <a>
+          <img src={`/uploads/${data?.image}`} alt="Фото" />
+          <span
+            className={styles.mask}
+            onClick={(event) => {
+              imagePicker.current.click();
+            }}
+          >
+            <PiCameraRotateFill style={{ width: "" }} />
+            <p>Изменить фотографию</p>
+            <input
+              type="file"
+              accept="image/*"
+              ref={imagePicker}
+              onChange={(e) => handleChange(e)}
+            />
+          </span>
+        </a>
+        <p>{data?.name}</p>
       </div>
-      <input type="file" onChange={(e) => handleChange(e)} />
-      <button onClick={(e) => handleClick(e)}>Изменить фото</button>
-      <button onClick={logout}>Выйти из аккаунта</button>
+      <div>
+        <button
+          style={{
+            width: "100px",
+            height: "30px",
+            fontSize: "14px",
+            borderRadius: "7px",
+          }}
+          onClick={logout}
+        >
+          Выйти из аккаунта
+        </button>
+      </div>
     </div>
   );
 };

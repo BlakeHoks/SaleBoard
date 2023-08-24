@@ -12,7 +12,6 @@ export const AdCreate = () => {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm();
 
@@ -71,6 +70,7 @@ export const AdCreate = () => {
           <input
             className={styles.file}
             type="file"
+            accept="image/*"
             multiple
             {...register("image")}
           />

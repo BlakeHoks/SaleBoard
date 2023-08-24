@@ -26,7 +26,7 @@ export const Auth = () => {
       onSuccess: (data) => {
         console.log("Success", data);
         localStorage.setItem("access_token", data.token);
-        nav(`/`);
+        nav(`/profile`);
       },
     },
   );
@@ -38,7 +38,7 @@ export const Auth = () => {
       onSuccess: (data) => {
         console.log("Success", data);
         localStorage.setItem("access_token", data.token);
-        nav(`/`);
+        nav(`/profile`);
       },
     },
   );

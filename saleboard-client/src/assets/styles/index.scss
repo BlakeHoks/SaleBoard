@@ -28,6 +28,17 @@ img {
   max-width: 100%;
 }
 
+button {
+  outline: none;
+  border: none;
+  border-radius: 10px;
+  color: $bg;
+  cursor: pointer;
+  font-size: 20px;
+  background-color: $focus;
+  transition: ease-in-out 0.3s;
+}
+
 #root {
   height: 100%;
 }
