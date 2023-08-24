@@ -36,7 +36,7 @@ export const Profile = () => {
     <div className={styles.container}>
       <div className={styles.imgNameCont}>
         <a>
-          <img src={`/uploads/${data?.image}`} alt="Фото" />
+          <img src={`/uploads/profile-images/${data?.image}`} alt="Фото" />
           <span
             className={styles.mask}
             onClick={(event) => {

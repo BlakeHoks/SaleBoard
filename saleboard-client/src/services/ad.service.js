@@ -16,6 +16,6 @@ export const AdService = {
     return response.data;
   },
   async create(data) {
-    return await axios.post("http://127.0.0.1:5000/api/ad/", data);
+    return (await axios.post("http://127.0.0.1:5000/api/ad/", data)).data;
   },
 };

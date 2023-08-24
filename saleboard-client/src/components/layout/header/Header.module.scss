@@ -27,6 +27,7 @@
   a {
     text-decoration: none;
     color: $bg;
+    transition: 0.3s;
 
     &:hover {
       color: $focus;
@@ -50,6 +51,18 @@
     color: $bg;
     font-family: $default-font;
     font-size: 15px;
+  }
+
+  .plusCont {
+    display: flex;
+    align-items: center;
+
+    svg {
+      position: relative;
+      top: 3px;
+    }
+    svg {
+    }
   }
 
   .profileButton {

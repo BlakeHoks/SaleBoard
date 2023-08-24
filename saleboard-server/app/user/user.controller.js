@@ -14,7 +14,6 @@ export const getUserProfile = asyncHandler(async (req, res) => {
 });
 
 export const addProfileImage = asyncHandler(async (req, res) => {
-  console.log(123);
   const user = await prisma.user.update({
     where: {
       id: +req.user.id,

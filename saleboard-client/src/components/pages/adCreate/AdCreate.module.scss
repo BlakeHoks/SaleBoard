@@ -32,5 +32,15 @@
         z-index: -1;
       }
     }
+
+    > div {
+      display: flex;
+      flex-direction: column;
+    }
+
+    span {
+      font-size: 14px;
+      color: red;
+    }
   }
 }
