@@ -4,9 +4,7 @@ import { AdCard } from "../../layout/adCard/AdCard.jsx";
 
 export const Catalog = ({ category }) => {
   const { data } = useQuery(["ads"], () => AdService.getByCategory(category), {
-    onSuccess: (data) => {
-      console.log(data);
-    },
+    onSuccess: (data) => {},
   });
 
   return (
@@ -16,9 +14,12 @@ export const Catalog = ({ category }) => {
         {data?.map((ad) => (
           <AdCard
             key={ad.id}
+            id={ad.id}
             title={ad.title}
             img={ad.images}
             price={ad.price}
+            description={ad.description}
+            authorName={ad.authorName}
           ></AdCard>
         ))}
       </div>

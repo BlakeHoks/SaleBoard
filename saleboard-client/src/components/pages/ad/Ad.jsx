@@ -35,8 +35,8 @@ export const Ad = () => {
           )}
         </div>
         <div className={styles.sideCont}>
-          <p>{data?.price}₽</p>
-          <p>Продавец</p>
+          <p>{Number(data?.price).toLocaleString("ru")}₽</p>
+          <p>{data?.authorName}</p>
           <Button>Написать</Button>
         </div>
       </div>

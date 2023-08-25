@@ -1,9 +1,48 @@
+@import "../../../assets/styles/variables";
+
 .container {
   display: flex;
-  border: solid #010101 3px;
+  justify-content: space-between;
   padding: 10px;
-  gap: 20px;
-  border-radius: 30px;
-  max-width: 300px;
+  border-radius: 6px;
   min-height: 150px;
+  transition: 0.2s;
+  cursor: pointer;
+  font-weight: 500;
+
+  &:hover {
+    background-color: rgba(49, 49, 49, 0.1);
+  }
+
+  img {
+    max-width: 200px;
+    max-height: 200px;
+    border-radius: 7px;
+  }
+
+  .title {
+    font-weight: 400;
+    color: $focus;
+  }
+
+  .desc {
+    font-size: 16px;
+    color: rgba(49, 49, 49, 0.7);
+    font-weight: 300;
+  }
+
+  .adCont {
+    display: flex;
+    gap: 20px;
+  }
+
+  .authorCont {
+    p {
+      font-weight: 400;
+
+      &:hover {
+        color: $focus;
+      }
+    }
+  }
 }

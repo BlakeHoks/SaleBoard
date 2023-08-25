@@ -9,7 +9,6 @@ export const createAd = asyncHandler(async (req, res) => {
     images.push(req.files[i].filename);
   }
 
-  console.log(images);
   const ad = await prisma.ad.create({
     data: {
       title,
@@ -32,6 +31,17 @@ export const getAdById = asyncHandler(async (req, res) => {
     },
   });
 
+  ad.authorName = (
+    await prisma.user.findUnique({
+      where: {
+        id: ad.authorId,
+      },
+      select: {
+        name: true,
+      },
+    })
+  ).name;
+
   res.json(ad);
 });
 
@@ -46,13 +56,26 @@ export const getAdByAuthorId = asyncHandler(async (req, res) => {
 });
 
 export const getAdByCategory = asyncHandler(async (req, res) => {
-  const ad = await prisma.ad.findMany({
+  const ads = await prisma.ad.findMany({
     where: {
       categoryName: req.params.category_name,
     },
   });
 
-  res.json(ad);
+  for (let i = 0; i < ads.length; i++) {
+    ads[i].authorName = (
+      await prisma.user.findUnique({
+        where: {
+          id: ads[i].authorId,
+        },
+        select: {
+          name: true,
+        },
+      })
+    ).name;
+  }
+
+  res.json(ads);
 });
 
 export const updateAd = asyncHandler(async (req, res) => {
