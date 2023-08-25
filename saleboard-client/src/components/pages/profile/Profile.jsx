@@ -4,14 +4,17 @@ import { useNavigate } from "react-router-dom";
 import { useRef, useState } from "react";
 import styles from "./Profile.module.scss";
 import { PiCameraRotateFill } from "react-icons/pi";
+import { useAuth } from "../../../hooks/useAuth.js";
+import { UserService } from "../../../services/user.service.js";
 
 export const Profile = () => {
   const queryClient = useQueryClient();
   const imagePicker = useRef(null);
+  const { logOut } = useAuth();
   const { data } = useQuery(["profile"], () => AuthService.getUserProfile());
   const { mutate } = useMutation(
     ["profile_image"],
-    (data) => AuthService.addProfileImage(data),
+    (data) => UserService.addProfileImage(data),
     {
       onSuccess: () => {
         queryClient.invalidateQueries(["profile"]);
@@ -21,7 +24,7 @@ export const Profile = () => {
   const [newProfileImage, setNewProfileImage] = useState();
   const nav = useNavigate();
   const logout = () => {
-    localStorage.setItem("access_token", "");
+    logOut();
     nav("/");
   };
 

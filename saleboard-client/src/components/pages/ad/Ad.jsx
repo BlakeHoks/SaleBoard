@@ -11,8 +11,6 @@ export const Ad = () => {
   const [currentImage, setCurrentImage] = useState(0);
   const { data, isLoading } = useQuery(["adInfo"], () => AdService.getById(id));
 
-  const test = false;
-
   return (
     <div className={styles.container}>
       <p>{data?.title}</p>

@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { AuthService } from "../../../services/auth.service.js";
 import styles from "./Auth.module.scss";
 import { useState } from "react";
-import { UseAuth } from "../../../hooks/useAuth.js";
+import { useAuth } from "../../../hooks/useAuth.js";
 
 export const Auth = () => {
   const nav = useNavigate();
@@ -25,7 +25,7 @@ export const Auth = () => {
     {
       onSuccess: (data) => {
         console.log("Success", data);
-        localStorage.setItem("access_token", data.token);
+        logIn(data.token);
         nav(`/profile`);
       },
     },
@@ -37,7 +37,7 @@ export const Auth = () => {
     {
       onSuccess: (data) => {
         console.log("Success", data);
-        localStorage.setItem("access_token", data.token);
+        logIn(data.token);
         nav(`/profile`);
       },
     },
@@ -55,7 +55,7 @@ export const Auth = () => {
     signUp(data);
   };
 
-  const { isAuth } = UseAuth();
+  const { logIn } = useAuth();
 
   //console.log(isAuth);
   return (
