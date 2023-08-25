@@ -8,6 +8,8 @@ export const createAd = asyncHandler(async (req, res) => {
   for (let i = 0; i < req.files.length; i++) {
     images.push(req.files[i].filename);
   }
+
+  console.log(images);
   const ad = await prisma.ad.create({
     data: {
       title,

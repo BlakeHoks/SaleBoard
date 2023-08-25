@@ -20,8 +20,41 @@
 }
 
 .imageCont {
-  width: 550px;
-  height: 350px;
-  background-color: $focus;
-  background-image: none;
+  position: relative;
+  display: flex;
+  div {
+    &.rightArrow {
+      right: 0;
+      top: 0;
+    }
+    z-index: 1;
+    background: rgba(49, 49, 49, 0.3);
+    justify-content: center;
+    height: 100%;
+    width: 50px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    position: absolute;
+    transition: 0.5s ease-in-out;
+    opacity: 0;
+
+    svg {
+      fill: $bg;
+      font-size: 26px;
+    }
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+  img {
+    width: 550px;
+    height: 350px;
+    background-color: $focus;
+    background-image: none;
+    object-fit: cover;
+    transition: 0.5s ease-in-out;
+  }
 }
