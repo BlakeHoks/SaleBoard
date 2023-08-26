@@ -29,18 +29,10 @@ export const getAdById = asyncHandler(async (req, res) => {
     where: {
       id: +req.params.id,
     },
+    include: {
+      author: true,
+    },
   });
-
-  ad.authorName = (
-    await prisma.user.findUnique({
-      where: {
-        id: ad.authorId,
-      },
-      select: {
-        name: true,
-      },
-    })
-  ).name;
 
   res.json(ad);
 });
@@ -57,25 +49,23 @@ export const getAdByAuthorId = asyncHandler(async (req, res) => {
 
 export const getAdByCategory = asyncHandler(async (req, res) => {
   const ads = await prisma.ad.findMany({
+    skip: (req.params.page - 1) * 3,
+    take: 3,
+    where: {
+      categoryName: req.params.category_name,
+    },
+    include: {
+      author: true,
+    },
+  });
+  const amount = await prisma.ad.count({
     where: {
       categoryName: req.params.category_name,
     },
   });
 
-  for (let i = 0; i < ads.length; i++) {
-    ads[i].authorName = (
-      await prisma.user.findUnique({
-        where: {
-          id: ads[i].authorId,
-        },
-        select: {
-          name: true,
-        },
-      })
-    ).name;
-  }
-
-  res.json(ads);
+  console.log(ads);
+  res.json({ ads, amount });
 });
 
 export const updateAd = asyncHandler(async (req, res) => {
@@ -122,7 +112,45 @@ export const deleteAd = asyncHandler(async (req, res) => {
 });
 
 export const getAds = asyncHandler(async (req, res) => {
-  const ads = await prisma.ad.findMany();
+  const ads = await prisma.ad.findMany({
+    skip: (req.params.page - 1) * 10,
+    take: 10,
+    where: {
+      OR: [
+        {
+          title: {
+            search: req.query,
+            mode: "insensitive",
+          },
+        },
+        {
+          description: {
+            search: req.query,
+            mode: "insensitive",
+          },
+        },
+      ],
+    },
+  });
 
-  res.json(ads);
+  const amount = await prisma.ad.count({
+    where: {
+      OR: [
+        {
+          title: {
+            search: req.query,
+            mode: "insensitive",
+          },
+        },
+        {
+          description: {
+            search: req.query,
+            mode: "insensitive",
+          },
+        },
+      ],
+    },
+  });
+
+  res.json({ ads, amount });
 });

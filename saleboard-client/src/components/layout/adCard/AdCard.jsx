@@ -17,7 +17,13 @@ export const AdCard = ({ id, title, img, price, description, authorName }) => {
         </div>
       </div>
       <div className={styles.authorCont}>
-        <p onClick={() => console.log(1)}>{authorName}</p>
+        <p
+          onClick={() => {
+            nav("/");
+          }}
+        >
+          {authorName}
+        </p>
       </div>
     </div>
   );

@@ -39,6 +39,7 @@
   .authorCont {
     p {
       font-weight: 400;
+      transition: 0.3s ease-in-out;
 
       &:hover {
         color: $focus;

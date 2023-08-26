@@ -17,9 +17,6 @@ export const Header = () => {
             <NavLink to="/">Главная</NavLink>
           </li>
           <li>
-            <NavLink to="/">Контакты</NavLink>
-          </li>
-          <li>
             <Hamburger text="Категории" />
           </li>
         </ul>

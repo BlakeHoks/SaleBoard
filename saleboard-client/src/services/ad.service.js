@@ -1,13 +1,11 @@
 import axios from "axios";
 
 export const AdService = {
-  async getAll() {
-    const response = await axios.get("http://127.0.0.1:5000/api/ad/");
-    return response.data;
-  },
-  async getByCategory(category) {
+  async getAds(category, page) {
     const response = await axios.get(
-      "http://127.0.0.1:5000/api/ad/category/" + category,
+      "http://127.0.0.1:5000/api/ad" +
+        (category ? "/category/" + category : "") +
+        `/page/${page}`,
     );
     return response.data;
   },

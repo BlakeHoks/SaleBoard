@@ -1,7 +1,9 @@
+import { Catalog } from "../catalog/Catalog.jsx";
+
 export const HomePage = () => {
   return (
     <div>
-      <div>Главная</div>
+      <Catalog category="" />
     </div>
   );
 };
