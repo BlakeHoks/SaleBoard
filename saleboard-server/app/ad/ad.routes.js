@@ -24,7 +24,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 router.route("/").post(upload.array("images", 10), createAd);
-router.route("/page/:page").get(getAds);
+router.route("/page/:page/:query").get(getAds);
 router
   .route("/:id")
   .get(getAdById)

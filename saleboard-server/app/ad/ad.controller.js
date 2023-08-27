@@ -113,23 +113,26 @@ export const deleteAd = asyncHandler(async (req, res) => {
 
 export const getAds = asyncHandler(async (req, res) => {
   const ads = await prisma.ad.findMany({
-    skip: (req.params.page - 1) * 10,
-    take: 10,
+    skip: (req.params.page - 1) * 3,
+    take: 3,
     where: {
       OR: [
         {
           title: {
-            search: req.query,
+            search: req.params.query,
             mode: "insensitive",
           },
         },
         {
           description: {
-            search: req.query,
+            search: req.params.query,
             mode: "insensitive",
           },
         },
       ],
+    },
+    include: {
+      author: true,
     },
   });
 
@@ -138,13 +141,13 @@ export const getAds = asyncHandler(async (req, res) => {
       OR: [
         {
           title: {
-            search: req.query,
+            search: req.params.query,
             mode: "insensitive",
           },
         },
         {
           description: {
-            search: req.query,
+            search: req.params.query,
             mode: "insensitive",
           },
         },

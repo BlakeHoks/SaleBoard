@@ -7,12 +7,13 @@ import { useState } from "react";
 export const Catalog = ({ category }) => {
   const [pageAmount, setPageAmount] = useState(0);
   const [page, setPage] = useState(1);
+  const [query, setQuery] = useState("123");
 
   const queryClient = useQueryClient();
 
   const { data } = useQuery(
     ["ads", page],
-    () => AdService.getAds(category, page),
+    () => AdService.getAds(category, page, query),
     {
       onSuccess: (data) => {
         //console.log(data);
