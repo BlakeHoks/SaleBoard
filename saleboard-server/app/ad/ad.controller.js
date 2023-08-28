@@ -64,7 +64,6 @@ export const getAdByCategory = asyncHandler(async (req, res) => {
     },
   });
 
-  console.log(ads);
   res.json({ ads, amount });
 });
 

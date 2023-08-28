@@ -3,3 +3,4 @@ node_modules
 .idea
 /saleboard-server/prisma/migrations
 uploads
+.prettierrc
