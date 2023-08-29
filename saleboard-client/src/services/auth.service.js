@@ -1,24 +1,31 @@
-import axios from "axios";
+import axios from 'axios'
 
 export const AuthService = {
   async getUserProfile() {
     return (
-      await axios.get("http://127.0.0.1:5000/api/user/profile", {
+      await axios.get('http://127.0.0.1:5000/api/user/profile', {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+          Authorization: `Bearer ${localStorage.getItem('access_token')}`,
         },
       })
-    ).data;
+    ).data
   },
   async login(data) {
     const response = await axios.post(
-      "http://127.0.0.1:5000/api/auth/login",
-      data,
-    );
-    return response.data;
+      'http://127.0.0.1:5000/api/auth/login',
+      data
+    )
+    return response.data
+  },
+  async confirm() {
+    return (
+      await axios.post('http://127.0.0.1:5000/api/auth/confirm', {
+        token: localStorage.getItem('access_token'),
+      })
+    ).data
   },
   async register(data) {
-    return (await axios.post("http://127.0.0.1:5000/api/auth/register", data))
-      .data;
+    return (await axios.post('http://127.0.0.1:5000/api/auth/register', data))
+      .data
   },
-};
+}

@@ -1,11 +1,21 @@
-import styles from "./Header.module.scss";
-import { Logo } from "../logo/Logo.jsx";
-import { Link, NavLink } from "react-router-dom";
-import { FiUser } from "react-icons/fi";
-import Hamburger from "../hamburger/Hamburger.jsx";
-import { IoMdAddCircleOutline } from "react-icons/io";
+import styles from './Header.module.scss'
+import { Logo } from '../logo/Logo.jsx'
+import { Link, NavLink, useSearchParams } from 'react-router-dom'
+import { FiUser } from 'react-icons/fi'
+import Hamburger from '../hamburger/Hamburger.jsx'
+import { IoMdAddCircleOutline } from 'react-icons/io'
+import { useQueryClient } from '@tanstack/react-query'
 
 export const Header = () => {
+  const [searchParams, setSearchParams] = useSearchParams()
+  const queryClient = useQueryClient()
+
+  const handleFind = (e) => {
+    e.preventDefault()
+    setSearchParams({ query: e.target.search.value })
+    queryClient.invalidateQueries(['ads'])
+  }
+
   return (
     <div className={styles.cont}>
       <Link to="/">
@@ -21,11 +31,13 @@ export const Header = () => {
           </li>
         </ul>
       </nav>
-      <input type="text" placeholder="Поиск" />
+      <form autoComplete="off" onSubmit={(e) => handleFind(e)}>
+        <input type="search" placeholder="Поиск" name="search" />
+      </form>
       <div className={styles.plusCont}>
         <Link to="ad/create">
           Создать
-          <IoMdAddCircleOutline style={{ fontSize: "25px" }} />
+          <IoMdAddCircleOutline style={{ fontSize: '25px' }} />
         </Link>
       </div>
       <div className={styles.profileButton}>
@@ -35,5 +47,5 @@ export const Header = () => {
         </Link>
       </div>
     </div>
-  );
-};
+  )
+}

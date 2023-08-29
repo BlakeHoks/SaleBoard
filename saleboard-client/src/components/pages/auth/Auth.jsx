@@ -1,15 +1,16 @@
-import { useForm } from "react-hook-form";
-import { Button } from "../../ui/button/Button.jsx";
-import { useMutation } from "@tanstack/react-query";
-import { useNavigate } from "react-router-dom";
-import { AuthService } from "../../../services/auth.service.js";
-import styles from "./Auth.module.scss";
-import { useState } from "react";
-import { useAuth } from "../../../hooks/useAuth.js";
+import { useForm } from 'react-hook-form'
+import { Button } from '../../ui/button/Button.jsx'
+import { useMutation } from '@tanstack/react-query'
+import { useLocation, useNavigate } from 'react-router-dom'
+import { AuthService } from '../../../services/auth.service.js'
+import styles from './Auth.module.scss'
+import { useState } from 'react'
+import { useAuth } from '../../../hooks/useAuth.js'
 
 export const Auth = () => {
-  const nav = useNavigate();
-  const [isLogin, setIsLogin] = useState(true);
+  const nav = useNavigate()
+  const location = useLocation()
+  const [isLogin, setIsLogin] = useState(true)
 
   const {
     register,
@@ -17,45 +18,42 @@ export const Auth = () => {
     watch,
     getValues,
     formState: { errors },
-  } = useForm();
+  } = useForm()
 
   const { mutate: login } = useMutation(
-    ["login"],
+    ['login'],
     (data) => AuthService.login(data),
     {
       onSuccess: (data) => {
-        console.log("Success", data);
-        logIn(data.token);
-        nav(`/profile`);
+        logIn(data.token)
+        nav(`${location.state.prevLoc}`)
       },
-    },
-  );
+    }
+  )
 
   const { mutate: signUp } = useMutation(
-    ["register"],
+    ['register'],
     (data) => AuthService.register(data),
     {
       onSuccess: (data) => {
-        console.log("Success", data);
-        logIn(data.token);
-        nav(`/profile`);
+        logIn(data.token)
+        nav(`${location.state.prevLoc}`)
       },
-    },
-  );
+    }
+  )
 
   const onSubmit = (data) => {
-    console.log(data);
-    login(data);
-  };
+    login(data)
+  }
 
   const handleClick = (e) => {
-    e.preventDefault();
-    const data = getValues();
-    console.log(data);
-    signUp(data);
-  };
+    e.preventDefault()
+    const data = getValues()
+    console.log(data)
+    signUp(data)
+  }
 
-  const { logIn } = useAuth();
+  const { logIn } = useAuth()
 
   //console.log(isAuth);
   return (
@@ -64,8 +62,8 @@ export const Auth = () => {
         <div>
           <input
             placeholder="Email"
-            {...register("email", {
-              required: { value: true, message: "Введите Email" },
+            {...register('email', {
+              required: { value: true, message: 'Введите Email' },
             })}
           />
           {errors.email && <span>{errors.email.message}</span>}
@@ -74,11 +72,11 @@ export const Auth = () => {
           <input
             type="password"
             placeholder="Пароль"
-            {...register("password", {
-              required: { value: true, message: "Введите пароль" },
+            {...register('password', {
+              required: { value: true, message: 'Введите пароль' },
               minLength: {
                 value: 5,
-                message: "Минимальная длина пароля 5 символов",
+                message: 'Минимальная длина пароля 5 символов',
               },
             })}
           />
@@ -87,7 +85,7 @@ export const Auth = () => {
         <div className={styles.buttonCont}>
           <Button>Войти</Button>
           <button
-            style={{ marginLeft: "40px" }}
+            style={{ marginLeft: '40px' }}
             className={styles.regButton}
             onClick={(e) => handleClick(e)}
           >
@@ -96,5 +94,5 @@ export const Auth = () => {
         </div>
       </form>
     </div>
-  );
-};
+  )
+}

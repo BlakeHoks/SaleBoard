@@ -3,11 +3,14 @@ import { AdService } from '../../../services/ad.service.js'
 import { AdCard } from '../../layout/adCard/AdCard.jsx'
 import { Pagination, Stack } from '@mui/material'
 import { useState } from 'react'
+import { useSearchParams } from 'react-router-dom'
 
 export const Catalog = ({ category }) => {
   const [pageAmount, setPageAmount] = useState(0)
   const [page, setPage] = useState(1)
-  const [query, setQuery] = useState(' ')
+  const [searchParams] = useSearchParams()
+
+  const query = searchParams.get('query') || ' '
 
   const queryClient = useQueryClient()
 
@@ -40,7 +43,7 @@ export const Catalog = ({ category }) => {
             description={ad.description}
             authorName={ad.author.name}
           ></AdCard>
-        ))}
+        )) || 'Ничего не найдено'}
       </div>
       <Stack spacing={2}>
         {!!pageAmount && (

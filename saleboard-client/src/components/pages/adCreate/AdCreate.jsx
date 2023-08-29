@@ -1,96 +1,95 @@
-import { useForm } from "react-hook-form";
-import styles from "./AdCreate.module.scss";
-import { Button } from "../../ui/button/Button.jsx";
-import { useNavigate } from "react-router-dom";
-import { useMutation } from "@tanstack/react-query";
-import { AdService } from "../../../services/ad.service.js";
-import { BsImages } from "react-icons/bs";
-import { useState } from "react";
+import { useForm } from 'react-hook-form'
+import styles from './AdCreate.module.scss'
+import { Button } from '../../ui/button/Button.jsx'
+import { useNavigate } from 'react-router-dom'
+import { useMutation } from '@tanstack/react-query'
+import { AdService } from '../../../services/ad.service.js'
+import { BsImages } from 'react-icons/bs'
+import { useState } from 'react'
 
 export const AdCreate = () => {
-  const nav = useNavigate();
-  const [pickedImages, setPickedImages] = useState([]);
+  const nav = useNavigate()
+  const [pickedImages, setPickedImages] = useState([])
 
   const {
     register,
     handleSubmit,
 
     formState: { errors },
-  } = useForm();
+  } = useForm()
 
   const { mutate } = useMutation(
-    ["createAd"],
+    ['createAd'],
     (data) => AdService.create(data),
     {
       onSuccess: (data) => {
-        console.log("Success", data);
-        nav(`/ad/${data.id}`);
+        console.log('Success', data)
+        nav(`/ad/${data.id}`)
       },
-    },
-  );
+    }
+  )
 
   const onSubmit = (data) => {
-    const formData = new FormData();
-    formData.append("title", data.title);
-    formData.append("price", data.price);
-    formData.append("description", data.description);
-    formData.append("authorId", data.authorId);
-    formData.append("address", data.address);
-    formData.append("categoryName", data.categoryName);
+    const formData = new FormData()
+    formData.append('title', data.title)
+    formData.append('price', data.price)
+    formData.append('description', data.description)
+    formData.append('authorId', data.authorId)
+    formData.append('address', data.address)
+    formData.append('categoryName', data.categoryName)
     for (let i = 0; i < data.images.length; i++) {
-      formData.append("images", data.images[i]);
+      formData.append('images', data.images[i])
     }
-    console.log(formData.getAll("price"));
-    mutate(formData);
-  };
+    mutate(formData)
+  }
 
   const validateNumberOfImages = (value) => {
-    return value.length <= 10 || "Максимально возможно загрузить 10 фотографий";
-  };
+    return value.length <= 10 || 'Максимально возможно загрузить 10 фотографий'
+  }
 
   return (
     <div className={styles.container}>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form autoComplete="off" onSubmit={handleSubmit(onSubmit)}>
         <div>
           <input
             type="text"
             placeholder="Название"
-            {...register("title", { required: true })}
+            {...register('title', { required: true })}
           />
         </div>
         <div>
           <input
             type="text"
             placeholder="Цена"
-            {...register("price", { required: true, valueAsNumber: true })}
+            {...register('price', { required: true, valueAsNumber: true })}
           />
         </div>
         <div>
           <input
             type="text"
             placeholder="Описание"
-            {...register("description", { required: true })}
+            {...register('description', { required: true })}
           />
         </div>
         <div>
           <input
             type="number"
             placeholder="authorId"
-            {...register("authorId", { required: true, valueAsNumber: true })}
+            {...register('authorId', { required: true, valueAsNumber: true })}
           />
         </div>
         <div>
           <input
             type="text"
             placeholder="Адрес"
-            {...register("address", { required: true })}
+            {...register('address', { required: true })}
           />
         </div>
         <div>
           <input
             type="text"
             placeholder="categoryName"
-            {...register("categoryName", { required: true })}
+            {...register('categoryName', { required: true })}
           />
         </div>
         <div>
@@ -101,7 +100,7 @@ export const AdCreate = () => {
               type="file"
               accept="image/*"
               multiple
-              {...register("images", {
+              {...register('images', {
                 validate: (value) => validateNumberOfImages(value),
               })}
             />
@@ -112,5 +111,5 @@ export const AdCreate = () => {
         <Button>Создать</Button>
       </form>
     </div>
-  );
-};
+  )
+}

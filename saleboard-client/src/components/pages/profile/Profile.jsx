@@ -1,39 +1,44 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { AuthService } from "../../../services/auth.service.js";
-import { useNavigate } from "react-router-dom";
-import { useRef, useState } from "react";
-import styles from "./Profile.module.scss";
-import { PiCameraRotateFill } from "react-icons/pi";
-import { useAuth } from "../../../hooks/useAuth.js";
-import { UserService } from "../../../services/user.service.js";
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { AuthService } from '../../../services/auth.service.js'
+import { useNavigate } from 'react-router-dom'
+import { useRef, useState } from 'react'
+import styles from './Profile.module.scss'
+import { PiCameraRotateFill } from 'react-icons/pi'
+import { useAuth } from '../../../hooks/useAuth.js'
+import { UserService } from '../../../services/user.service.js'
 
 export const Profile = () => {
-  const queryClient = useQueryClient();
-  const imagePicker = useRef(null);
-  const { logOut } = useAuth();
-  const { data } = useQuery(["profile"], () => AuthService.getUserProfile());
+  const nav = useNavigate()
+  const queryClient = useQueryClient()
+  const imagePicker = useRef(null)
+  const { logOut } = useAuth()
+  const { data } = useQuery(['profile'], () => AuthService.getUserProfile(), {
+    onError: () => {
+      logOut()
+      nav('/auth')
+    },
+  })
   const { mutate } = useMutation(
-    ["profile_image"],
+    ['profile_image'],
     (data) => UserService.addProfileImage(data),
     {
       onSuccess: () => {
-        queryClient.invalidateQueries(["profile"]);
+        queryClient.invalidateQueries(['profile'])
       },
-    },
-  );
-  const [newProfileImage, setNewProfileImage] = useState();
-  const nav = useNavigate();
+    }
+  )
+  const [newProfileImage, setNewProfileImage] = useState()
   const logout = () => {
-    logOut();
-    nav("/");
-  };
+    logOut()
+    nav('/')
+  }
 
   const handleChange = (e) => {
-    console.log(e.target.files[0]);
-    const formData = new FormData();
-    formData.append("file", e.target.files[0]);
-    mutate(formData);
-  };
+    console.log(e.target.files[0])
+    const formData = new FormData()
+    formData.append('file', e.target.files[0])
+    mutate(formData)
+  }
 
   return (
     <div className={styles.container}>
@@ -43,10 +48,10 @@ export const Profile = () => {
           <span
             className={styles.mask}
             onClick={(event) => {
-              imagePicker.current.click();
+              imagePicker.current.click()
             }}
           >
-            <PiCameraRotateFill style={{ width: "" }} />
+            <PiCameraRotateFill style={{ width: '' }} />
             <p>Изменить фотографию</p>
             <input
               type="file"
@@ -61,10 +66,10 @@ export const Profile = () => {
       <div>
         <button
           style={{
-            width: "100px",
-            height: "30px",
-            fontSize: "14px",
-            borderRadius: "7px",
+            width: '100px',
+            height: '30px',
+            fontSize: '14px',
+            borderRadius: '7px',
           }}
           onClick={logout}
         >
@@ -72,5 +77,5 @@ export const Profile = () => {
         </button>
       </div>
     </div>
-  );
-};
+  )
+}

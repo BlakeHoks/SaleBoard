@@ -1,11 +1,13 @@
+import Cookies from 'js-cookie'
+
 export const useAuth = () => {
   return {
-    isAuth: !!localStorage.getItem("access_token"),
+    isAuth: !!Cookies.get('access_token'),
     logIn: (token) => {
-      localStorage.setItem("access_token", token);
+      Cookies.set('access_token', token)
     },
     logOut: () => {
-      localStorage.setItem("access_token", "");
+      Cookies.set('access_token', '')
     },
-  };
-};
+  }
+}
