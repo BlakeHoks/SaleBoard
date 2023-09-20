@@ -1,7 +1,7 @@
 import asyncHandler from 'express-async-handler'
 import { prisma } from '../prisma.js'
 import { hash, verify } from 'argon2'
-import { confirmToken, generateToken } from './generate-token.js'
+import { generateToken } from './token.js'
 import { userFields } from '../utils/user.utils.js'
 
 export const authUser = asyncHandler(async (req, res) => {
@@ -24,9 +24,7 @@ export const authUser = asyncHandler(async (req, res) => {
 })
 
 export const confirmAuth = asyncHandler(async (req, res) => {
-  const { token } = req.body
-
-  confirmToken(token) ? res.json({ confirmed: true }) : res.status(401)
+  res.status(200)
 })
 
 export const registerUser = asyncHandler(async (req, res) => {

@@ -5,7 +5,7 @@ import { Pagination, Stack } from '@mui/material'
 import { useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 
-export const Catalog = ({ category }) => {
+export const Catalog = ({ category, authorId }) => {
   const [pageAmount, setPageAmount] = useState(0)
   const [page, setPage] = useState(1)
   const [searchParams] = useSearchParams()
@@ -15,8 +15,8 @@ export const Catalog = ({ category }) => {
   const queryClient = useQueryClient()
 
   const { data } = useQuery(
-    ['ads', page],
-    () => AdService.getAds(category, page, query),
+    ['ads', page, query],
+    () => AdService.getAdsByAuthorId(authorId, page, query),
     {
       onSuccess: (data) => {
         setPageAmount(Math.ceil(data.amount / 3))
@@ -31,19 +31,21 @@ export const Catalog = ({ category }) => {
 
   return (
     <div>
-      <div>{category}</div>
+      {category && <div>{category}</div>}
       <div style={{ display: 'flex', flexFlow: 'column', gap: '10px' }}>
-        {data?.ads.map((ad) => (
-          <AdCard
-            key={ad.id}
-            id={ad.id}
-            title={ad.title}
-            img={ad.images}
-            price={ad.price}
-            description={ad.description}
-            authorName={ad.author.name}
-          ></AdCard>
-        )) || 'Ничего не найдено'}
+        {data?.amount
+          ? data?.ads.map((ad) => (
+              <AdCard
+                key={ad.id}
+                id={ad.id}
+                title={ad.title}
+                img={ad.images}
+                price={ad.price}
+                description={ad.description}
+                authorName={ad.author?.name ? ad.author.name : ''}
+              ></AdCard>
+            ))
+          : 'Ничего не найдено'}
       </div>
       <Stack spacing={2}>
         {!!pageAmount && (

@@ -1,4 +1,4 @@
-import express from "express";
+import express from 'express'
 import {
   createAd,
   deleteAd,
@@ -8,29 +8,29 @@ import {
   getAds,
   updateAd,
   updateAdStatus,
-} from "./ad.controller.js";
-import multer from "multer";
+} from './ad.controller.js'
+import multer from 'multer'
 
-const router = express.Router();
+const router = express.Router()
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "../saleboard-client/public/uploads/ads-images");
+    cb(null, '../saleboard-client/public/uploads/ads-images')
   },
   filename: (req, file, cb) => {
-    cb(null, Date.now() + "-" + file.originalname);
+    cb(null, Date.now() + '-' + file.originalname)
   },
-});
-const upload = multer({ storage });
+})
+const upload = multer({ storage })
 
-router.route("/").post(upload.array("images", 10), createAd);
-router.route("/page/:page/:query").get(getAds);
+router.route('/').post(upload.array('images', 10), createAd)
+router.route('/page/:page/:query*?').get(getAds)
 router
-  .route("/:id")
+  .route('/:id')
   .get(getAdById)
   .put(updateAd)
   .patch(updateAdStatus)
-  .delete(deleteAd);
-router.route("/user/:id").get(getAdByAuthorId);
-router.route("/category/:category_name/page/:page").get(getAdByCategory);
-export default router;
+  .delete(deleteAd)
+router.route('/user/:id').get(getAdByAuthorId)
+router.route('/category/:category_name/page/:page').get(getAdByCategory)
+export default router

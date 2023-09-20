@@ -8,9 +8,9 @@ export const RequireAuth = () => {
   const { isAuth } = useAuth()
   const nav = useNavigate()
 
-  const { data } = useQuery(['checkAuth'], () => AuthService.confirm(), {
-    onSuccess: (data) => {
-      console.log(data)
+  const {} = useQuery(['checkAuth'], () => AuthService.confirm(), {
+    onError: () => {
+      nav('/auth')
     },
   })
 

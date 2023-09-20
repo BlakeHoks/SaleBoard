@@ -1,27 +1,29 @@
-@import "../../../assets/styles/variables";
-@import "../../../assets/styles/animations";
+@import '../../../assets/styles/variables';
+@import '../../../assets/styles/animations';
 
 .cont {
+  position: sticky;
   background-color: $dark;
+  top: 10px;
+  margin: 0 10px;
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
   border-radius: 15px;
-  margin: 10px;
   padding: 5px;
   color: $bg;
+  align-items: center;
   justify-content: space-between;
 
-  nav {
+  @media screen and (width < 930px) {
+    //flex-direction: column;
   }
 
-  ul {
+  div {
+    flex: 1;
     display: flex;
-    list-style: none;
-  }
-
-  li {
-    margin: 5px 10px;
+    align-items: center;
+    justify-content: center;
   }
 
   a {
@@ -32,9 +34,14 @@
     &:hover {
       color: $focus;
     }
+  }
 
-    &.active {
-      color: red;
+  form {
+    flex: 2;
+    padding: 0 10px;
+
+    @media screen and (width < 930px) {
+      flex: 1;
     }
   }
 
@@ -43,31 +50,24 @@
     outline: none;
     border-style: solid;
     border-width: 2px;
-    width: 400px;
+    width: 100%;
     border-color: $bg;
     border-radius: 20px;
     padding: 5px 10px;
-    background-color: transparent;
-    color: $bg;
     font-family: $default-font;
     font-size: 15px;
   }
 
   .plusCont {
-    display: flex;
-    align-items: center;
-
     svg {
       position: relative;
-      top: 3px;
+      top: 5px;
     }
     svg {
     }
   }
 
   .profileButton {
-    margin-top: 5px;
-
     svg {
       position: relative;
       top: 2px;

@@ -1,5 +1,5 @@
-@import "../../../assets/styles/variables";
-@import "../../../assets/styles/animations";
+@import '../../../assets/styles/variables';
+@import '../../../assets/styles/animations';
 
 .wrapper {
   position: relative;
@@ -46,6 +46,8 @@
 
     > ul {
       list-style: none;
+      display: flex;
+      gap: 20px;
 
       a {
         color: #000;

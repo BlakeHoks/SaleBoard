@@ -6,11 +6,14 @@ import { AuthService } from '../../../services/auth.service.js'
 import styles from './Auth.module.scss'
 import { useState } from 'react'
 import { useAuth } from '../../../hooks/useAuth.js'
+import { Alert, AlertTitle, Snackbar } from '@mui/material'
 
 export const Auth = () => {
   const nav = useNavigate()
   const location = useLocation()
   const [isLogin, setIsLogin] = useState(true)
+  const { logIn } = useAuth()
+  const [open, setOpen] = useState(false)
 
   const {
     register,
@@ -27,6 +30,9 @@ export const Auth = () => {
       onSuccess: (data) => {
         logIn(data.token)
         nav(`${location.state.prevLoc}`)
+      },
+      onError: () => {
+        setOpen(true)
       },
     }
   )
@@ -53,11 +59,18 @@ export const Auth = () => {
     signUp(data)
   }
 
-  const { logIn } = useAuth()
-
-  //console.log(isAuth);
   return (
     <div>
+      <Snackbar
+        open={open}
+        autoHideDuration={6000}
+        onClose={() => setOpen(false)}
+      >
+        <Alert severity="error">
+          <AlertTitle>Ошибка</AlertTitle>
+          Ошибка авторизации
+        </Alert>
+      </Snackbar>
       <form className={styles.container} onSubmit={handleSubmit(onSubmit)}>
         <div>
           <input

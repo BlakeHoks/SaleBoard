@@ -38,13 +38,19 @@ export const getAdById = asyncHandler(async (req, res) => {
 })
 
 export const getAdByAuthorId = asyncHandler(async (req, res) => {
-  const ad = await prisma.ad.findMany({
+  const ads = await prisma.ad.findMany({
     where: {
       authorId: +req.params.id,
     },
   })
 
-  res.json(ad)
+  const amount = await prisma.ad.count({
+    where: {
+      authorId: +req.params.id,
+    },
+  })
+
+  res.json({ ads, amount })
 })
 
 export const getAdByCategory = asyncHandler(async (req, res) => {
@@ -111,24 +117,15 @@ export const deleteAd = asyncHandler(async (req, res) => {
 })
 
 export const getAds = asyncHandler(async (req, res) => {
+  const query = req.params.query || ' '
   const ads = await prisma.ad.findMany({
     skip: (req.params.page - 1) * 3,
     take: 3,
     where: {
-      OR: [
-        {
-          title: {
-            search: req.params.query,
-            mode: 'insensitive',
-          },
-        },
-        {
-          description: {
-            search: req.params.query,
-            mode: 'insensitive',
-          },
-        },
-      ],
+      title: {
+        search: query,
+        mode: 'insensitive',
+      },
     },
     include: {
       author: true,
@@ -140,13 +137,13 @@ export const getAds = asyncHandler(async (req, res) => {
       OR: [
         {
           title: {
-            search: req.params.query,
+            search: query,
             mode: 'insensitive',
           },
         },
         {
           description: {
-            search: req.params.query,
+            search: query,
             mode: 'insensitive',
           },
         },

@@ -21,16 +21,12 @@ export const Header = () => {
       <Link to="/">
         <Logo />
       </Link>
-      <nav>
-        <ul>
-          <li>
-            <NavLink to="/">Главная</NavLink>
-          </li>
-          <li>
-            <Hamburger text="Категории" />
-          </li>
-        </ul>
-      </nav>
+      <div>
+        <NavLink to="/">Главная</NavLink>
+      </div>
+      <div>
+        <Hamburger text="Категории" />
+      </div>
       <form autoComplete="off" onSubmit={(e) => handleFind(e)}>
         <input type="search" placeholder="Поиск" name="search" />
       </form>
