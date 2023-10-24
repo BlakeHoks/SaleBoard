@@ -14,7 +14,6 @@ export const AdCreate = () => {
   const {
     register,
     handleSubmit,
-
     formState: { errors },
   } = useForm()
 

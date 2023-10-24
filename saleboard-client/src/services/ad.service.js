@@ -5,15 +5,13 @@ export const AdService = {
     const response = await axios.get(
       'http://127.0.0.1:5000/api/ad' +
         (category ? `/category/${category}` : '') +
-        `/page/${page}` +
-        `/${query}`
+        `/page/${page}/${query}`
     )
     return response.data
   },
-  async getAdsByAuthorId(authorId, page, query) {
-    console.log(authorId)
+  async getAdsByAuthorId(authorId, page) {
     const response = await axios.get(
-      `http://127.0.0.1:5000/api/ad/user/${authorId}`
+      `http://127.0.0.1:5000/api/ad/user/${authorId}/page/${page}`
     )
     return response.data
   },

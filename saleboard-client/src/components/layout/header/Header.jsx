@@ -1,6 +1,6 @@
 import styles from './Header.module.scss'
 import { Logo } from '../logo/Logo.jsx'
-import { Link, NavLink, useSearchParams } from 'react-router-dom'
+import { Link, NavLink, useNavigate, useSearchParams } from 'react-router-dom'
 import { FiUser } from 'react-icons/fi'
 import Hamburger from '../hamburger/Hamburger.jsx'
 import { IoMdAddCircleOutline } from 'react-icons/io'
@@ -9,9 +9,11 @@ import { useQueryClient } from '@tanstack/react-query'
 export const Header = () => {
   const [searchParams, setSearchParams] = useSearchParams()
   const queryClient = useQueryClient()
+  const nav = useNavigate()
 
   const handleFind = (e) => {
     e.preventDefault()
+    nav('/')
     setSearchParams({ query: e.target.search.value })
     queryClient.invalidateQueries(['ads'])
   }

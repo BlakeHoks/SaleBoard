@@ -31,6 +31,6 @@ router
   .put(updateAd)
   .patch(updateAdStatus)
   .delete(deleteAd)
-router.route('/user/:id').get(getAdByAuthorId)
+router.route('/user/:id/page/:page').get(getAdByAuthorId)
 router.route('/category/:category_name/page/:page').get(getAdByCategory)
 export default router

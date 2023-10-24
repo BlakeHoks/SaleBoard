@@ -16,7 +16,10 @@ export const Catalog = ({ category, authorId }) => {
 
   const { data } = useQuery(
     ['ads', page, query],
-    () => AdService.getAdsByAuthorId(authorId, page, query),
+    () =>
+      !!authorId
+        ? AdService.getAdsByAuthorId(authorId, page, query)
+        : AdService.getAds(category, page, query),
     {
       onSuccess: (data) => {
         setPageAmount(Math.ceil(data.amount / 3))

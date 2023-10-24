@@ -39,6 +39,8 @@ export const getAdById = asyncHandler(async (req, res) => {
 
 export const getAdByAuthorId = asyncHandler(async (req, res) => {
   const ads = await prisma.ad.findMany({
+    skip: (req.params.page - 1) * 3,
+    take: 3,
     where: {
       authorId: +req.params.id,
     },
@@ -122,10 +124,20 @@ export const getAds = asyncHandler(async (req, res) => {
     skip: (req.params.page - 1) * 3,
     take: 3,
     where: {
-      title: {
-        search: query,
-        mode: 'insensitive',
-      },
+      OR: [
+        {
+          title: {
+            contains: query,
+            mode: 'insensitive',
+          },
+        },
+        {
+          description: {
+            contains: query,
+            mode: 'insensitive',
+          },
+        },
+      ],
     },
     include: {
       author: true,
@@ -137,13 +149,13 @@ export const getAds = asyncHandler(async (req, res) => {
       OR: [
         {
           title: {
-            search: query,
+            contains: query,
             mode: 'insensitive',
           },
         },
         {
           description: {
-            search: query,
+            contains: query,
             mode: 'insensitive',
           },
         },

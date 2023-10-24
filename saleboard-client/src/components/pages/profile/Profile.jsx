@@ -81,7 +81,7 @@ export const Profile = () => {
       </div>
       <div className={styles.catalogCont}>
         <p>Ваши объявления</p>
-        <Catalog authorId="2"></Catalog>
+        <Catalog authorId={data?.id}></Catalog>
       </div>
     </div>
   )
